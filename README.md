@@ -1,0 +1,11 @@
+# Why
+
+- making a frontend, so people can interact with a ready backend (deployed contract to testnet)
+- making it minimally, so this POC doesn't involve learning much new tech
+
+# Backlog
+
+- make buttons visible ✅
+- make 1 button work: convert integer to colorhex
+  - show result in JS console
+  - show result on webpage
