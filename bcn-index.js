@@ -10,7 +10,7 @@ import { contractAddress, abi } from "./bcn-constants.js";
 
 // grab website elements
 const connectButton = document.getElementById("connectButton");
-// const input = document.getElementById("input");
+const input = document.getElementById("input");
 // const getColorhexButton = document.getElementById("getColorhexButton");
 // const getIdButton = document.getElementById("getIdButton");
 const getNameOf76A923Button = document.getElementById("getNameOf76A923Button");
@@ -38,6 +38,7 @@ async function getNameOf76A923() {
     });
 
     console.log(result);
+    input.value = result;
   } else {
     connectButton.innerHTML = "Please install MetaMask!";
   }

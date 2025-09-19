@@ -9,4 +9,4 @@
 - update constants ✅
 - make 1 button work: convert integer to colorhex
   - show result in JS console (enough for PoC) ✅
-  - show result on webpage
+  - show result on webpage ✅
