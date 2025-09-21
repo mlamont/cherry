@@ -5,17 +5,11 @@
 
     
     <button id="OldConnectButton">Connect</button>
-    <br>
-    <label for="input">Enter Value here...</label>
-    <input id="input" placeholder="3" />
-    <br>
-    <button id="getNameOf76A923Button">Get Name of #76A923</button>
     <hr>
 
-    color.rockopera.eth
-    <span id="topSpan"></span><BR>
-    
+    <h1>color.rockopera.eth</h1>
     Name a color. Own that color. Make art onchain.<BR>
+    <BR>
 
     <span id="greetingSpan">Hello, whoever you are.</span>
     <button id="connectButton">Connect Metamask wallet!</button><BR>
@@ -23,17 +17,30 @@
     <label for="colorInput">Pick a color: #</label>
     <input id="colorInput" placeholder="76A923" />
     <button id="namedButton">Is it named?</button><BR>
-    
-    current name: <div id="currentNameDiv"></div><BR>
+    current name: <span id="currentNameSpan"></span><BR>
+    current owner: <span id="currentOwnerSpan"></span><BR>
 
-    current owner: <div id="currentOwnerDiv"></div><BR>
-
+    <div id="ownerIsNobodyDiv" hidden>
     <label for="nameInput">Pick a name: </label>
     <input id="nameInput" />
     <button id="nameItButton">Name it! (0.001 ETH + gas)</button>
+    </div>
+
+    <div id="ownerIsSomebodyDiv" hidden>
+    Oh well... pick another color.<BR>
+    But if that's you, then connect to rename it, if you like!
+    </div>
+
+    <div id="ownerIsMeDiv" hidden>
+    <label for="renameInput">Pick a name: </label>
+    <input id="renameInput" />
+    <button id="renameItButton">Rename it! (just pay gas)</button>
+    </div>
 </body>
 
+<!--
 <script src="./index-js.js" type="module"></script>
+-->
 <script src="./bcn-index.js" type="module"></script>
 
 </html>
