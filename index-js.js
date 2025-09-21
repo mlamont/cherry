@@ -9,7 +9,7 @@ import {
 } from "https://esm.sh/viem";
 import { contractAddress, abi } from "./constants-js.js";
 
-const connectButton = document.getElementById("connectButton");
+const OldConnectButton = document.getElementById("connectButton");
 const fundButton = document.getElementById("fundButton");
 const ethAmountInput = document.getElementById("ethAmount");
 const balanceButton = document.getElementById("balanceButton");
@@ -25,10 +25,10 @@ async function connect() {
     });
     await walletClient.requestAddresses();
     // @ts-ignore
-    connectButton.innerHTML = "Connected!";
+    OldConnectButton.innerHTML = "Connected!";
   } else {
     // @ts-ignore
-    connectButton.innerHTML = "Please install MetaMask!";
+    OldConnectButton.innerHTML = "Please install MetaMask!";
   }
 }
 
@@ -133,10 +133,4 @@ async function withdraw() {
 }
 
 // @ts-ignore
-connectButton.onclick = connect;
-// @ts-ignore
-fundButton.onclick = fund;
-// @ts-ignore
-balanceButton.onclick = getBalance;
-// @ts-ignore
-withdrawButton.onclick = withdraw;
+OldConnectButton.onclick = connect;
