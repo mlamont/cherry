@@ -3,10 +3,6 @@
 <head><title>color.rockopera.eth</title></head>
 <body>
 
-    
-    <button id="oldConnectButton">Connect</button>
-    <hr>
-
     <h1>color.rockopera.eth</h1>
     Name a color. Own that color. Make art onchain.<BR>
     <BR>
@@ -23,12 +19,16 @@
     <div id="ownerIsNobodyDiv" hidden>
     <label for="nameInput">Pick a name: </label>
     <input id="nameInput" />
-    <button id="nameItButton">Name it! (0.001 ETH + gas)</button>
+    <button id="nameItButton">Name it! (currently free + gas)</button>
     </div>
 
     <div id="ownerIsSomebodyDiv" hidden>
     Oh well... pick another color.<BR>
-    But if that's you, then connect to rename it, if you like!
+    If you connect your wallet, and this is yours, you could rename it!
+    </div>
+
+    <div id="ownerIsNotMeDiv" hidden>
+    Oh well... pick another color.
     </div>
 
     <div id="ownerIsMeDiv" hidden>
@@ -38,9 +38,6 @@
     </div>
 </body>
 
-<!--
-<script src="./index-js.js" type="module"></script>
--->
 <script src="./bcn-index.js" type="module"></script>
 
 </html>
