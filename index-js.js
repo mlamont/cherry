@@ -9,7 +9,7 @@ import {
 } from "https://esm.sh/viem";
 import { contractAddress, abi } from "./constants-js.js";
 
-const OldConnectButton = document.getElementById("connectButton");
+const oldConnectButton = document.getElementById("oldConnectButton");
 const fundButton = document.getElementById("fundButton");
 const ethAmountInput = document.getElementById("ethAmount");
 const balanceButton = document.getElementById("balanceButton");
@@ -18,17 +18,18 @@ const withdrawButton = document.getElementById("withdrawButton");
 let walletClient;
 let publicClient;
 
-async function connect() {
+async function oldConnect() {
+  console.log("hi from start of oldConnect()");
   if (typeof window.ethereum !== "undefined") {
     walletClient = createWalletClient({
       transport: custom(window.ethereum),
     });
     await walletClient.requestAddresses();
     // @ts-ignore
-    OldConnectButton.innerHTML = "Connected!";
+    oldConnectButton.innerHTML = "Connected!";
   } else {
     // @ts-ignore
-    OldConnectButton.innerHTML = "Please install MetaMask!";
+    oldConnectButton.innerHTML = "Please install MetaMask!";
   }
 }
 
@@ -64,7 +65,7 @@ async function fund() {
     console.log(hash);
   } else {
     // @ts-ignore
-    connectButton.innerHTML = "Please install MetaMask!";
+    oldConnectButton.innerHTML = "Please install MetaMask!";
   }
 }
 
@@ -128,9 +129,9 @@ async function withdraw() {
     console.log(hash);
   } else {
     // @ts-ignore
-    connectButton.innerHTML = "Please install MetaMask!";
+    oldConnectButton.innerHTML = "Please install MetaMask!";
   }
 }
 
 // @ts-ignore
-OldConnectButton.onclick = connect;
+oldConnectButton.onclick = oldConnect;

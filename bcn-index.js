@@ -9,13 +9,14 @@ import { sepolia } from "https://esm.sh/viem/chains";
 import { contractAddress, abi } from "./bcn-constants.js";
 
 // grab website elements
-// const getNameOf76A923Button = document.getElementById("getNameOf76A923Button");
+const greetingSpan = document.getElementById("greetingSpan");
 const connectButton = document.getElementById("connectButton");
 const colorInput = document.getElementById("colorInput");
 const namedButton = document.getElementById("namedButton");
 const currentNameSpan = document.getElementById("currentNameSpan");
 const currentOwnerSpan = document.getElementById("currentOwnerSpan");
 const ownerIsNobodyDiv = document.getElementById("ownerIsNobodyDiv");
+const ownerIsSomebodyDiv = document.getElementById("ownerIsSomebodyDiv");
 
 // initialize viem pieces
 let walletClient;
@@ -23,18 +24,20 @@ let publicClient;
 
 let tokenName;
 let tokenOwner;
+let connectedAccount;
 
 async function connect() {
   if (typeof window.ethereum !== "undefined") {
     walletClient = createWalletClient({
       chain: sepolia,
-      transport: http(),
+      transport: custom(window.ethereum),
     });
-    await walletClient.requestAddresses();
     console.log("wallet client created from connect() in bcn-index.js");
+    [connectedAccount] = await walletClient.requestAddresses();
+    greetingSpan.innerHTML = `Hello, ${connectedAccount}!`;
     connectButton.innerHTML = "(connected)";
   } else {
-    connectButton.innerHTML = "...PLEASE INSTALL METAMASK!";
+    connectButton.innerHTML = "(please install Metamask)";
   }
 }
 
@@ -60,8 +63,25 @@ async function named() {
       });
       currentNameSpan.innerHTML = tokenName;
       currentOwnerSpan.innerHTML = tokenOwner;
-      ownerIsNobodyDiv.hidden = true;
-      ownerIsSomebodyDiv.hidden = false;
+
+      // do tests to see if connectedAccount is same as tokenOwner
+      // ...yeesh, I don't like this if-else-ing, neither my DIV options for them
+      if (connectedAccount !== "") {
+        [connectedAccount] = await walletClient.requestAddresses();
+        if (connectedAccount == tokenOwner) {
+          ownerIsNobodyDiv.hidden = true;
+          ownerIsSomebodyDiv.hidden = true;
+          ownerIsMeDiv.hidden = false;
+        } else {
+          ownerIsNobodyDiv.hidden = true;
+          ownerIsSomebodyDiv.hidden = false;
+          ownerIsMeDiv.hidden = true;
+        }
+      } else {
+        ownerIsNobodyDiv.hidden = true;
+        ownerIsSomebodyDiv.hidden = false;
+        ownerIsMeDiv.hidden = true;
+      }
     } catch (error) {
       console.log(error.message);
       if (error.message.includes("ERC721NonexistentToken")) {
