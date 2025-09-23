@@ -49,8 +49,8 @@ async function connect() {
 
 async function named() {
   // let's start with a clean UI slate
-  renameInput.innerHTML = "";
-  nameInput.innerHTML = "";
+  renameInput.value = "";
+  nameInput.value = "";
   ownerIsNobodyDiv.hidden = true;
   ownerIsSomebodyDiv.hidden = true;
   ownerIsNotMeDiv.hidden = true;
