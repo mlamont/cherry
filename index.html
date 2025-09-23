@@ -2,42 +2,534 @@
 <html>
 <head><title>color.rockopera.eth</title></head>
 <body>
+    <div style="text-align:right">
+        <span id="greetingSpan">Hello, whoever you are.</span>
+        <button id="connectButton">Connect Metamask wallet!</button>
+    </div>
+    
+    <center>
+    
+    <H1>COLOR.ROCKOPERA.ETH</H1>
+    (live beta on sepolia testnet)<BR>
+    Name a color. Own that color. Make art onchain.
 
-    <h1>color.rockopera.eth</h1>
-    Name a color. Own that color. Make art onchain.<BR>
-    <BR>
-
-    <span id="greetingSpan">Hello, whoever you are.</span>
-    <button id="connectButton">Connect Metamask wallet!</button><BR>
-
-    <label for="colorInput">Pick a color: #</label>
-    <input id="colorInput" placeholder="76A923" />
-    <button id="namedButton">Is it named?</button><BR>
+    <H2>Pick a color!</H2>
+    #<input id="colorInput" placeholder="76A923" />
+    
+    <H2>Is it named?</H2>
+    <button id="namedButton">Get info!</button><BR>
     current name: <span id="currentNameSpan"></span><BR>
     current owner: <span id="currentOwnerSpan"></span><BR>
 
     <div id="ownerIsNobodyDiv" hidden>
+    <H2>Yay! Want this?</H2>
     <label for="nameInput">Pick a name: </label>
     <input id="nameInput" />
     <button id="nameItButton">Name it! (currently free + gas)</button>
     </div>
 
     <div id="ownerIsSomebodyDiv" hidden>
+    <H2>Connect. Then retry!</H2>
     Oh well... pick another color.<BR>
     If you connect your wallet, and this is yours, you could rename it!
     </div>
 
     <div id="ownerIsNotMeDiv" hidden>
+    <H2>Oof. It's taken.</H2>
     Oh well... pick another color.
     </div>
 
     <div id="ownerIsMeDiv" hidden>
+    <H2>Yep. It's yours.</H2>
     <label for="renameInput">Pick a name: </label>
     <input id="renameInput" />
     <button id="renameItButton">Rename it! (just pay gas)</button>
     </div>
-</body>
 
 <script src="./bcn-index.js" type="module"></script>
+<!-- when folding in all the javascript to this one HTML file
+ remember to include, and mod, the constants file
 
+<script type="module">
+const contractAddress = "0x3445ae1AC7253D2E72Cd5A9C9EAeD28Dc2451179";
+const abi = [
+  { inputs: [], stateMutability: "nonpayable", type: "constructor" },
+  {
+    inputs: [
+      { internalType: "address", name: "sender", type: "address" },
+      { internalType: "uint256", name: "tokenId", type: "uint256" },
+      { internalType: "address", name: "owner", type: "address" },
+    ],
+    name: "ERC721IncorrectOwner",
+    type: "error",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "operator", type: "address" },
+      { internalType: "uint256", name: "tokenId", type: "uint256" },
+    ],
+    name: "ERC721InsufficientApproval",
+    type: "error",
+  },
+  {
+    inputs: [{ internalType: "address", name: "approver", type: "address" }],
+    name: "ERC721InvalidApprover",
+    type: "error",
+  },
+  {
+    inputs: [{ internalType: "address", name: "operator", type: "address" }],
+    name: "ERC721InvalidOperator",
+    type: "error",
+  },
+  {
+    inputs: [{ internalType: "address", name: "owner", type: "address" }],
+    name: "ERC721InvalidOwner",
+    type: "error",
+  },
+  {
+    inputs: [{ internalType: "address", name: "receiver", type: "address" }],
+    name: "ERC721InvalidReceiver",
+    type: "error",
+  },
+  {
+    inputs: [{ internalType: "address", name: "sender", type: "address" }],
+    name: "ERC721InvalidSender",
+    type: "error",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
+    name: "ERC721NonexistentToken",
+    type: "error",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "owner",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "approved",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
+    ],
+    name: "Approval",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "owner",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "operator",
+        type: "address",
+      },
+      { indexed: false, internalType: "bool", name: "approved", type: "bool" },
+    ],
+    name: "ApprovalForAll",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: "address", name: "from", type: "address" },
+      { indexed: true, internalType: "address", name: "to", type: "address" },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
+    ],
+    name: "Transfer",
+    type: "event",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "to", type: "address" },
+      { internalType: "uint256", name: "tokenId", type: "uint256" },
+    ],
+    name: "approve",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "owner", type: "address" }],
+    name: "balanceOf",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
+    name: "getApproved",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "n", type: "uint256" }],
+    name: "getColorhex",
+    outputs: [{ internalType: "string", name: "", type: "string" }],
+    stateMutability: "pure",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "string", name: "colorhex", type: "string" }],
+    name: "getName",
+    outputs: [{ internalType: "string", name: "", type: "string" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "string", name: "colorhex", type: "string" }],
+    name: "getOwner",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "string", name: "colorhex", type: "string" }],
+    name: "getPic",
+    outputs: [{ internalType: "string", name: "", type: "string" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "owner", type: "address" },
+      { internalType: "address", name: "operator", type: "address" },
+    ],
+    name: "isApprovedForAll",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "string", name: "colorhex", type: "string" },
+      { internalType: "string", name: "newName", type: "string" },
+    ],
+    name: "modName",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "string", name: "colorhex", type: "string" },
+      { internalType: "address", name: "newOwner", type: "address" },
+    ],
+    name: "modOwner",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "name",
+    outputs: [{ internalType: "string", name: "", type: "string" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "string", name: "colorhex", type: "string" }],
+    name: "nixToken",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
+    name: "ownerOf",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "from", type: "address" },
+      { internalType: "address", name: "to", type: "address" },
+      { internalType: "uint256", name: "tokenId", type: "uint256" },
+    ],
+    name: "safeTransferFrom",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "from", type: "address" },
+      { internalType: "address", name: "to", type: "address" },
+      { internalType: "uint256", name: "tokenId", type: "uint256" },
+      { internalType: "bytes", name: "data", type: "bytes" },
+    ],
+    name: "safeTransferFrom",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "operator", type: "address" },
+      { internalType: "bool", name: "approved", type: "bool" },
+    ],
+    name: "setApprovalForAll",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "string", name: "colorhex", type: "string" },
+      { internalType: "string", name: "name", type: "string" },
+    ],
+    name: "setToken",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "bytes4", name: "interfaceId", type: "bytes4" }],
+    name: "supportsInterface",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "symbol",
+    outputs: [{ internalType: "string", name: "", type: "string" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
+    name: "tokenURI",
+    outputs: [{ internalType: "string", name: "", type: "string" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "from", type: "address" },
+      { internalType: "address", name: "to", type: "address" },
+      { internalType: "uint256", name: "tokenId", type: "uint256" },
+    ],
+    name: "transferFrom",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "string", name: "colorhex", type: "string" }],
+    name: "validateColorhexAndGetId",
+    outputs: [{ internalType: "uint256", name: "n", type: "uint256" }],
+    stateMutability: "pure",
+    type: "function",
+  },
+];
+
+import {
+  createWalletClient,
+  custom,
+  createPublicClient,
+  defineChain,
+  http,
+} from "https://esm.sh/viem";
+import { sepolia } from "https://esm.sh/viem/chains";
+
+// grab website elements
+const greetingSpan = document.getElementById("greetingSpan");
+const connectButton = document.getElementById("connectButton");
+const colorInput = document.getElementById("colorInput");
+const namedButton = document.getElementById("namedButton");
+const currentNameSpan = document.getElementById("currentNameSpan");
+const currentOwnerSpan = document.getElementById("currentOwnerSpan");
+const renameInput = document.getElementById("renameInput");
+const renameItButton = document.getElementById("renameItButton");
+const nameInput = document.getElementById("nameInput");
+const nameItButton = document.getElementById("nameItButton");
+const ownerIsNobodyDiv = document.getElementById("ownerIsNobodyDiv");
+const ownerIsSomebodyDiv = document.getElementById("ownerIsSomebodyDiv");
+const ownerIsNotMeDiv = document.getElementById("ownerIsNotMeDiv");
+const ownerIsMeDiv = document.getElementById("ownerIsMeDiv");
+
+// initialize viem pieces
+let walletClient;
+let publicClient;
+
+let tokenName;
+let tokenOwner;
+let connectedAccount;
+
+async function connect() {
+  if (typeof window.ethereum !== "undefined") {
+    walletClient = createWalletClient({
+      chain: sepolia,
+      transport: custom(window.ethereum),
+    });
+    console.log("wallet client created from connect() in bcn-index.js");
+    [connectedAccount] = await walletClient.requestAddresses();
+    greetingSpan.innerHTML = `Hello, ${connectedAccount}!`;
+    connectButton.innerHTML = "(connected)";
+  } else {
+    connectButton.innerHTML = "(please install Metamask)";
+  }
+}
+
+async function named() {
+  if (typeof window.ethereum !== "undefined") {
+    publicClient = createPublicClient({
+      chain: sepolia,
+      transport: http(),
+    });
+    console.log("public client created from named() in bcn-index.js");
+    try {
+      tokenName = await publicClient.readContract({
+        address: contractAddress,
+        abi: abi,
+        functionName: "getName",
+        args: [colorInput.value],
+      });
+      tokenOwner = await publicClient.readContract({
+        address: contractAddress,
+        abi: abi,
+        functionName: "getOwner",
+        args: [colorInput.value],
+      });
+      // ...if we made it this far, inputs were valid, and token exists...
+      currentNameSpan.innerHTML = tokenName;
+      currentOwnerSpan.innerHTML = tokenOwner;
+
+      if (typeof connectedAccount !== "undefined") {
+        // ...user connected... (but could've changed account since)
+        // so get current connected account
+        [connectedAccount] = await walletClient.requestAddresses();
+        if (connectedAccount == tokenOwner) {
+          // ...user is owner...
+          ownerIsNobodyDiv.hidden = true;
+          ownerIsSomebodyDiv.hidden = true;
+          ownerIsNotMeDiv.hidden = true;
+          ownerIsMeDiv.hidden = false; // owner exists, and is user
+          renameInput.innerHTML = "";
+        } else {
+          // ...user is not owner...
+          ownerIsNobodyDiv.hidden = true;
+          ownerIsSomebodyDiv.hidden = true;
+          ownerIsNotMeDiv.hidden = false; // owner exists, and is not user
+          ownerIsMeDiv.hidden = true;
+        }
+      } else {
+        // ...user did not connect...
+        ownerIsNobodyDiv.hidden = true;
+        ownerIsSomebodyDiv.hidden = false; // owner exists, could be user
+        ownerIsNotMeDiv.hidden = true;
+        ownerIsMeDiv.hidden = true;
+      }
+    } catch (error) {
+      // ...some kind of error happened from querying a token's owner and/or name...
+      console.log(error.message);
+      if (error.message.includes("ERC721NonexistentToken")) {
+        // ...ah, right, token doesn't exist...
+        currentNameSpan.innerHTML = "Up for grabs!";
+        currentOwnerSpan.innerHTML = "Could be you!";
+        ownerIsNobodyDiv.hidden = false; // owner does not exist
+        ownerIsSomebodyDiv.hidden = true;
+        ownerIsNotMeDiv.hidden = true;
+        ownerIsMeDiv.hidden = true;
+        nameInput.innerHTML = "";
+      } else {
+        // ...uh, well, some other error...
+        currentNameSpan.innerHTML = "please try...";
+        currentOwnerSpan.innerHTML = "...that again";
+        ownerIsNobodyDiv.hidden = true; // hide...
+        ownerIsSomebodyDiv.hidden = true; // ...all...
+        ownerIsNotMeDiv.hidden = true; // ...the...
+        ownerIsMeDiv.hidden = true; // ...options
+      }
+    }
+  } else {
+    currentNameSpan.innerHTML = "please first...";
+    currentOwnerSpan.innerHTML = "...install Metamask";
+    ownerIsNobodyDiv.hidden = true;
+    ownerIsSomebodyDiv.hidden = true;
+    ownerIsNotMeDiv.hidden = true;
+    ownerIsMeDiv.hidden = true;
+  }
+}
+
+async function renameIt() {
+  // first: connect! (gets the current connected account)
+  connect();
+  // now:
+  try {
+    publicClient = createPublicClient({
+      transport: custom(window.ethereum),
+    });
+    const { request } = await publicClient.simulateContract({
+      address: contractAddress,
+      abi: abi,
+      functionName: "modName",
+      account: connectedAccount,
+      chain: sepolia,
+      args: [colorInput.value, renameInput.value],
+    });
+    const hash = await walletClient.writeContract(request);
+    console.log(hash);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function nameIt() {
+  // first: connect! (gets the current connected account)
+  connect();
+  // now:
+  try {
+    publicClient = createPublicClient({
+      transport: custom(window.ethereum),
+    });
+    const { request } = await publicClient.simulateContract({
+      address: contractAddress,
+      abi: abi,
+      functionName: "setToken",
+      account: connectedAccount,
+      chain: sepolia,
+      args: [colorInput.value, nameInput.value],
+    });
+    const hash = await walletClient.writeContract(request);
+    console.log(hash);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+connectButton.onclick = connect;
+namedButton.onclick = named;
+renameItButton.onclick = renameIt;
+nameItButton.onclick = nameIt;
+
+
+</script>
+-->
+</center></body>
 </html>
