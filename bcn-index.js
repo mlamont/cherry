@@ -48,12 +48,17 @@ async function connect() {
 }
 
 async function named() {
+  renameInput.innerHTML = "";
+  nameInput.innerHTML = "";
+  // ...is Metamask installed...
   if (typeof window.ethereum !== "undefined") {
+    // ...Metamask is installed...
     publicClient = createPublicClient({
       chain: sepolia,
       transport: http(),
     });
     console.log("public client created from named() in bcn-index.js");
+    // let's try to get the token's name & owner
     try {
       tokenName = await publicClient.readContract({
         address: contractAddress,
@@ -68,48 +73,59 @@ async function named() {
         args: [colorInput.value],
       });
       // ...if we made it this far, inputs were valid, and token exists...
+      // let's show the token's name & owner
       currentNameSpan.innerHTML = tokenName;
       currentOwnerSpan.innerHTML = tokenOwner;
-
+      // ...did the user connect...
       if (typeof connectedAccount !== "undefined") {
         // ...user connected... (but could've changed account since)
-        // so get current connected account
+        // let's get the current connected account
         [connectedAccount] = await walletClient.requestAddresses();
+        // ...is the user the owner...
         if (connectedAccount == tokenOwner) {
-          // ...user is owner...
+          // ...user is the owner...
           ownerIsNobodyDiv.hidden = true;
           ownerIsSomebodyDiv.hidden = true;
           ownerIsNotMeDiv.hidden = true;
-          ownerIsMeDiv.hidden = false; // owner exists, and is user
-          renameInput.innerHTML = "";
+          ownerIsMeDiv.hidden = false; // ...owner exists, and is user
         } else {
-          // ...user is not owner...
+          // ...user is not the owner...
           ownerIsNobodyDiv.hidden = true;
           ownerIsSomebodyDiv.hidden = true;
-          ownerIsNotMeDiv.hidden = false; // owner exists, and is not user
+          ownerIsNotMeDiv.hidden = false; // ...owner exists, and is not user
           ownerIsMeDiv.hidden = true;
         }
       } else {
         // ...user did not connect...
         ownerIsNobodyDiv.hidden = true;
-        ownerIsSomebodyDiv.hidden = false; // owner exists, could be user
+        ownerIsSomebodyDiv.hidden = false; // ...retry, pal
         ownerIsNotMeDiv.hidden = true;
         ownerIsMeDiv.hidden = true;
       }
     } catch (error) {
-      // ...some kind of error happened from querying a token's owner and/or name...
+      // ...some kind of error happened from trying to get the token's name & owner...
       console.log(error.message);
+      // ...is the error about the token not existing...
       if (error.message.includes("ERC721NonexistentToken")) {
         // ...ah, right, token doesn't exist...
         currentNameSpan.innerHTML = "Up for grabs!";
         currentOwnerSpan.innerHTML = "Could be you!";
-        ownerIsNobodyDiv.hidden = false; // owner does not exist
-        ownerIsSomebodyDiv.hidden = true;
-        ownerIsNotMeDiv.hidden = true;
-        ownerIsMeDiv.hidden = true;
-        nameInput.innerHTML = "";
+        // ...did the user connect...
+        if (typeof connectedAccount !== "undefined") {
+          // ...user did connect...
+          ownerIsNobodyDiv.hidden = false; // ...owner does not exist
+          ownerIsSomebodyDiv.hidden = true;
+          ownerIsNotMeDiv.hidden = true;
+          ownerIsMeDiv.hidden = true;
+        } else {
+          // ...user did not connect...
+          ownerIsNobodyDiv.hidden = true;
+          ownerIsSomebodyDiv.hidden = false; // ...retry, pal
+          ownerIsNotMeDiv.hidden = true;
+          ownerIsMeDiv.hidden = true;
+        }
       } else {
-        // ...uh, well, some other error...
+        // ...uh, well, it's some other error...
         currentNameSpan.innerHTML = "please try...";
         currentOwnerSpan.innerHTML = "...that again";
         ownerIsNobodyDiv.hidden = true; // hide...
@@ -119,10 +135,9 @@ async function named() {
       }
     }
   } else {
-    currentNameSpan.innerHTML = "please first...";
-    currentOwnerSpan.innerHTML = "...install Metamask";
+    // ...Metamask is not installed...
     ownerIsNobodyDiv.hidden = true;
-    ownerIsSomebodyDiv.hidden = true;
+    ownerIsSomebodyDiv.hidden = false; // ...retry, pal
     ownerIsNotMeDiv.hidden = true;
     ownerIsMeDiv.hidden = true;
   }

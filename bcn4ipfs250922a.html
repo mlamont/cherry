@@ -2,58 +2,47 @@
 <html>
 <head><title>color.rockopera.eth</title></head>
 <body>
-    <div style="text-align:right">
-        <span id="greetingSpan">Hello, whoever you are.</span>
-        <button id="connectButton">Connect Metamask wallet!</button>
-    </div>
-    
-    <center>
-    
-    <H1>COLOR.ROCKOPERA.ETH</H1>
-    (live beta on sepolia testnet)<BR>
-    Name a color. Own that color. Make art onchain.
 
-    <H2>Pick a color!</H2>
-    #<input id="colorInput" placeholder="76A923" />
-    
-    
-    <H2>Is it named?</H2>
-    <button id="namedButton">Get info!</button><BR>
+    <h1>color.rockopera.eth (beta)</h1>
+    Name a color. Own that color. Make art onchain.<BR>
+    <BR>
+
+    <span id="greetingSpan">Hello, whoever you are.</span>
+    <button id="connectButton">Connect Metamask wallet!</button><BR>
+
+    <label for="colorInput">Pick a color: #</label>
+    <input id="colorInput" placeholder="76A923" />
+    <button id="namedButton">Is it named?</button><BR>
     current name: <span id="currentNameSpan"></span><BR>
     current owner: <span id="currentOwnerSpan"></span><BR>
 
-    <!-- #_0 -->
     <div id="ownerIsNobodyDiv" hidden>
-    <H2>Available! Want this?</H2>
     <label for="nameInput">Pick a name: </label>
     <input id="nameInput" />
     <button id="nameItButton">Name it! (currently free + gas)</button>
     </div>
 
-    <!-- #_9 -->
     <div id="ownerIsSomebodyDiv" hidden>
-    <H2>Connect Metamask wallet.</H2>
-    Then click that 'Get info!' button again to continue.<BR>
+    Oh well... pick another color.<BR>
+    If you connect your wallet, and this is yours, you could rename it!
     </div>
 
-    <!-- #_2 -->
     <div id="ownerIsNotMeDiv" hidden>
-    <H2>Oof. It's taken.</H2>
     Oh well... pick another color.
     </div>
 
-    <!-- #_1 -->
     <div id="ownerIsMeDiv" hidden>
-    <H2>Yep. It's yours.</H2>
     <label for="renameInput">Pick a name: </label>
     <input id="renameInput" />
     <button id="renameItButton">Rename it! (just pay gas)</button>
     </div>
 
-<script src="./bcn-index.js" type="module"></script>
+
 <!-- when folding in all the javascript to this one HTML file
  remember to include, and mod, the constants file
 
+<script src="./bcn-index.js" type="module"></script>
+-->
 <script type="module">
 const contractAddress = "0x3445ae1AC7253D2E72Cd5A9C9EAeD28Dc2451179";
 const abi = [
@@ -534,6 +523,5 @@ nameItButton.onclick = nameIt;
 
 
 </script>
--->
-</center></body>
+</body>
 </html>
