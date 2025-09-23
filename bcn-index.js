@@ -48,8 +48,13 @@ async function connect() {
 }
 
 async function named() {
+  // let's start with a clean UI slate
   renameInput.innerHTML = "";
   nameInput.innerHTML = "";
+  ownerIsNobodyDiv.hidden = true;
+  ownerIsSomebodyDiv.hidden = true;
+  ownerIsNotMeDiv.hidden = true;
+  ownerIsMeDiv.hidden = true;
   // ...is Metamask installed...
   if (typeof window.ethereum !== "undefined") {
     // ...Metamask is installed...
@@ -84,23 +89,14 @@ async function named() {
         // ...is the user the owner...
         if (connectedAccount == tokenOwner) {
           // ...user is the owner...
-          ownerIsNobodyDiv.hidden = true;
-          ownerIsSomebodyDiv.hidden = true;
-          ownerIsNotMeDiv.hidden = true;
           ownerIsMeDiv.hidden = false; // ...owner exists, and is user
         } else {
           // ...user is not the owner...
-          ownerIsNobodyDiv.hidden = true;
-          ownerIsSomebodyDiv.hidden = true;
           ownerIsNotMeDiv.hidden = false; // ...owner exists, and is not user
-          ownerIsMeDiv.hidden = true;
         }
       } else {
         // ...user did not connect...
-        ownerIsNobodyDiv.hidden = true;
         ownerIsSomebodyDiv.hidden = false; // ...retry, pal
-        ownerIsNotMeDiv.hidden = true;
-        ownerIsMeDiv.hidden = true;
       }
     } catch (error) {
       // ...some kind of error happened from trying to get the token's name & owner...
@@ -114,32 +110,19 @@ async function named() {
         if (typeof connectedAccount !== "undefined") {
           // ...user did connect...
           ownerIsNobodyDiv.hidden = false; // ...owner does not exist
-          ownerIsSomebodyDiv.hidden = true;
-          ownerIsNotMeDiv.hidden = true;
-          ownerIsMeDiv.hidden = true;
         } else {
           // ...user did not connect...
-          ownerIsNobodyDiv.hidden = true;
           ownerIsSomebodyDiv.hidden = false; // ...retry, pal
-          ownerIsNotMeDiv.hidden = true;
-          ownerIsMeDiv.hidden = true;
         }
       } else {
         // ...uh, well, it's some other error...
         currentNameSpan.innerHTML = "please try...";
         currentOwnerSpan.innerHTML = "...that again";
-        ownerIsNobodyDiv.hidden = true; // hide...
-        ownerIsSomebodyDiv.hidden = true; // ...all...
-        ownerIsNotMeDiv.hidden = true; // ...the...
-        ownerIsMeDiv.hidden = true; // ...options
       }
     }
   } else {
     // ...Metamask is not installed...
-    ownerIsNobodyDiv.hidden = true;
     ownerIsSomebodyDiv.hidden = false; // ...retry, pal
-    ownerIsNotMeDiv.hidden = true;
-    ownerIsMeDiv.hidden = true;
   }
 }
 
