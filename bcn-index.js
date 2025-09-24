@@ -2,7 +2,6 @@ import {
   createWalletClient,
   custom,
   createPublicClient,
-  defineChain,
   http,
 } from "https://esm.sh/viem";
 import { sepolia } from "https://esm.sh/viem/chains";
@@ -63,19 +62,20 @@ async function named() {
       transport: http(),
     });
     console.log("public client created from named() in bcn-index.js");
+    console.log(colorInput.value.substring(1));
     // let's try to get the token's name & owner
     try {
       tokenName = await publicClient.readContract({
         address: contractAddress,
         abi: abi,
         functionName: "getName",
-        args: [colorInput.value],
+        args: [colorInput.value.substring(1)],
       });
       tokenOwner = await publicClient.readContract({
         address: contractAddress,
         abi: abi,
         functionName: "getOwner",
-        args: [colorInput.value],
+        args: [colorInput.value.substring(1)],
       });
       // ...if we made it this far, inputs were valid, and token exists...
       // let's show the token's name & owner
@@ -140,7 +140,7 @@ async function renameIt() {
       functionName: "modName",
       account: connectedAccount,
       chain: sepolia,
-      args: [colorInput.value, renameInput.value],
+      args: [colorInput.value.substring(1), renameInput.value],
     });
     const hash = await walletClient.writeContract(request);
     console.log(hash);
@@ -163,7 +163,7 @@ async function nameIt() {
       functionName: "setToken",
       account: connectedAccount,
       chain: sepolia,
-      args: [colorInput.value, nameInput.value],
+      args: [colorInput.value.substring(1), nameInput.value],
     });
     const hash = await walletClient.writeContract(request);
     console.log(hash);
