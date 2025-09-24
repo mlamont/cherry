@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head><title>color.rockopera.eth</title></head>
-<body>
+<body style="background-color:#1B1B1B; color:#C1B7A0; font-family: sans-serif">
     <div style="text-align:right">
         <span id="greetingSpan">Hello, whoever you are.</span>
         <button id="connectButton">Connect Metamask wallet!</button>
@@ -9,22 +9,22 @@
     
     <center>
     
-    <H1>COLOR.ROCKOPERA.ETH</H1>
+    <H1 style="font-family: serif">COLOR.ROCKOPERA.ETH</H1>
     (live beta on sepolia testnet)<BR>
     Name a color. Own that color. Make art onchain.
 
-    <H2>Pick a color!</H2>
+    <H2 style="font-family: serif">Pick a color!</H2>
     #<input id="colorInput" placeholder="76A923" />
     
     
-    <H2>Is it named?</H2>
+    <H2 style="font-family: serif">Is it named?</H2>
     <button id="namedButton">Get info!</button><BR>
     current name: <span id="currentNameSpan"></span><BR>
     current owner: <span id="currentOwnerSpan"></span><BR>
 
     <!-- #_0 -->
     <div id="ownerIsNobodyDiv" hidden>
-    <H2>Ooh! Want this?</H2>
+    <H2 style="font-family: serif">Ooh! Want this?</H2>
     <label for="nameInput">Pick a name: </label>
     <input id="nameInput" />
     <button id="nameItButton">Name it! (currently free + gas)</button><BR>
@@ -33,19 +33,19 @@
 
     <!-- #_9 -->
     <div id="ownerIsSomebodyDiv" hidden>
-    <H2>Connect Metamask wallet.</H2>
+    <H2 style="font-family: serif">Connect Metamask wallet.</H2>
     Then click that 'Get info!' button again to continue.<BR>
     </div>
 
     <!-- #_2 -->
     <div id="ownerIsNotMeDiv" hidden>
-    <H2>Dang! It's taken.</H2>
+    <H2 style="font-family: serif">Dang! It's taken.</H2>
     Oh well... pick another color.
     </div>
 
     <!-- #_1 -->
     <div id="ownerIsMeDiv" hidden>
-    <H2>Yep! It's yours.</H2>
+    <H2 style="font-family: serif">Yep! It's yours.</H2>
     <label for="renameInput">Pick a name: </label>
     <input id="renameInput" />
     <button id="renameItButton">Rename it! (just pay gas)</button><BR>
@@ -55,7 +55,7 @@
     </center>
 <HR>
     <div style="text-align:center">
-        <H3>About Naming Color</H3>
+        <H2 style="font-family: serif">About Naming Color</H2>
         Imagine yourself in a hardware store. In the back.<BR>
         Look at that wall of cards with the colors on them.<BR>
         All those colors have names.<BR>
@@ -67,12 +67,12 @@
         More creative names, or at least less boring ones.<BR>
         More culturally diverse names, or at least ones in different languages.<BR>
         More meaningful names, or at least ones with an interesting story.<BR>
-        So that's what this color.rockopera.eth project lets you do.<BR>
-        <b>Collect 1 NFT color card for each of the over 16 million web colors.</b><BR>
+        So that's what this color.rockopera.eth project lets you do.<BR><BR>
+        <b>Collect 1 NFT color card for each of the over 16 million web colors.</b><BR><BR>
         And maybe have some fun along the way.<BR>
-        code: <a href="https://github.com/mlamont/cherry">front-end on Github</a>, <a href="https://github.com/mlamont/orange">back-end on Github</a>, <a href="https://sepolia.etherscan.io/address/0x3445ae1AC7253D2E72Cd5A9C9EAeD28Dc2451179">contract on Etherscan</a><BR>
+        <b>code</b>: <a href="https://github.com/mlamont/cherry" style="color:#C1B7A0;">front-end on Github</a>, <a href="https://github.com/mlamont/orange" style="color:#C1B7A0;">back-end on Github</a>, <a href="https://sepolia.etherscan.io/address/0x3445ae1AC7253D2E72Cd5A9C9EAeD28Dc2451179" style="color:#C1B7A0;">contract on Etherscan</a><BR>
         
-        <H3>About Owning Color</H3>
+        <H2 style="font-family: serif">About Owning Color</H2>
         Imagine owning a color. Let's say it's that "firetruck red".<BR>
         You own it. Congrats. It's yours now.<BR>
         Do you know what this means?<BR>
@@ -80,15 +80,39 @@
         It doesn't feel right to own something available to all of us.<BR>
         It doesn't make sense to own something intangible.<BR>
         It doesn't seem remotely similar to owning other things.<BR>
-        Yet that's why I'm drawn to this project.<BR>
-        <b>By tokenizing color, I'm making something intangible, tangible.</b><BR>
-        And now we enable something new.
+        Yet that's why I'm drawn to this project.<BR><BR>
+        <b>By tokenizing color, I'm making something intangible, tangible.</b><BR><BR>
+        And now we enable something new.<BR>
+        <b>loose backlog</b>: contract upgradable, pic watermark, right-to-left naming, event & error handling, readme, pricing, security<BR>
         
-        <H3>About Onchain Art</H3>
-        (Why I'm doing this...)<BR>
-        loose backlog: contract upgradable, pic watermark, right-to-left naming, event & error handling, readme, pricing, security<BR>
+        <H2 style="font-family: serif">About Onchain Art</H2>
+        Imagine you're about to sign an important document.<BR>
+        What color is the ink of the pen in your hand?<BR>
+        I bet it's either blue or black.<BR>
+        Like I know I've been told are the only acceptable colors.<BR>
+        For signing checks at a bank.<BR>
+        But what if you could sign it in YOUR "firetruck red"?<BR>
+        Then all the peoples would know that that signature was definitely yours.<BR>
+        Because ONLY YOU have that color.<BR>
+        That color just became your signature color.<BR>
+        (Pun intended.)<BR>
+        Now... let's be real.<BR>
+        Nobody's stopping other "firetruck red" pens from being made.<BR>
+        Nobody's preventing your pen from being stolen.<BR>
+        Nobody's saying you couldn't accidentally lose your pen.<BR>
+        Now... let's be Web3.<BR>
+        Nobody could duplicate the token, depending on the contract's type.<BR>
+        Nobody could steal the token, depending on the contract's security.<BR>
+        Nobody could lose the token, depending on the owner's onchain practices.<BR>
+        Sure, we'd need dApps that would only accept this specific source of color.<BR>
+        From a set of sources of artistic building blocks.<BR>
+        So that's what I'm building.<BR><BR>
+        <b>To make more onchain artworks, we need more onchain art primitives.</b><BR><BR>
+        And thus this lowers the barrier for each of us.<BR>
+        For you.<BR>
+        To create and share, and now own, your rockopera.<BR>
         <BR>
-        color.rockopera.eth, version 250923a, by rockopera.eth
+        color.rockopera.eth, version 250923a, by <a href="http://rockopera.eth.link" style="color:#C1B7A0;">rockopera.eth</a>
     </div>
 
 <script src="./bcn-index.js" type="module"></script>
