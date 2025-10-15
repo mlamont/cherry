@@ -11,7 +11,15 @@
   - version controlling the main page
   - uploading to IPFS
 - sourcing from separate files
-  -
+  - index.html: the 1 file that is uploaded to IPFS
+    - in 'dev mode', it points to JS:
+      - in bcn-index.js,
+      - which also points to bcn-constants.js
+    - in 'publish mode', it houses the JS:
+      - almost exactly bcn-index.js,
+      - & almost exactly bcn-constants.js
+  - bcn-index.js: mods HTML, pulls in constants, interacts with blockchain
+  - bcn-constants.js: holds constants
 
 # Backlog
 
