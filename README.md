@@ -5,11 +5,6 @@
 
 # How
 
-- [Gotta figure out how I update this page, sourcing from separate files and flattining it into one, it would seem, then version controlling the main page, and THEN how I upload to IPFS.]
-  - ~~sourcing from separate files~~
-  - ~~flattening into one file~~
-  - ~~version controlling the main page~~
-  - **uploading to IPFS**
 - sourcing from separate files
   - index.html: the 1 file that is uploaded to IPFS
     - in 'dev mode', it points to JS:

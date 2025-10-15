@@ -43,7 +43,10 @@
     <H2 style="font-family: serif">Ooh! Want this?</H2>
     <label for="nameInput">Pick a name: </label>
     <input id="nameInput" />
-    <button id="nameItButton">Name it! (currently free + gas)</button><BR>
+    <button id="nameItButton">Name it! (fee + gas)</button><BR>
+    Fee is 10 ETH for: #000000, #FFFFFF<BR>
+    Fee is 1 ETH for: #0000FF, #00FF00, #FF0000, #00FFFF, #FF00FF, #FFFF00<BR>
+    Fee is 0.001 ETH for: every other color<BR>
     When done, wait a sec, then check out the NFT in your wallet.
     </div>
 
@@ -86,7 +89,7 @@
         So that's what this color.rockopera.eth project lets you do.<BR><BR>
         <b>Collect 1 NFT color card for each of the over 16 million web colors.</b><BR><BR>
         And maybe have some fun along the way.<BR>
-        <b>code</b>: <a href="https://github.com/mlamont/cherry" style="color:#C1B7A0;">front-end on Github</a>, <a href="https://github.com/mlamont/orange" style="color:#C1B7A0;">back-end on Github</a>, <a href="https://sepolia.etherscan.io/address/0x3445ae1AC7253D2E72Cd5A9C9EAeD28Dc2451179" style="color:#C1B7A0;">contract on Etherscan</a><BR>
+        <b>code</b>: <a href="https://github.com/mlamont/cherry" style="color:#C1B7A0;">front-end on Github</a>, <a href="https://github.com/mlamont/peach" style="color:#C1B7A0;">back-end on Github</a>, <a href="https://sepolia.etherscan.io/address/0xaD4C3bC7fEbC9FAd50496109c4845C1826eCe6D0" style="color:#C1B7A0;">contract on Etherscan</a><BR>
         
         <H2 style="font-family: serif">About Owning Color</H2>
         Imagine owning a color. Let's say it's that "firetruck red".<BR>
@@ -99,7 +102,7 @@
         Yet that's why I'm drawn to this project.<BR><BR>
         <b>By tokenizing color, I'm making something intangible, tangible.</b><BR><BR>
         And now we enable something new.<BR>
-        <b>loose backlog</b>: contract upgradable, pic watermark, right-to-left naming, event & error handling, readme, pricing, security<BR>
+        <b>loose backlog</b>: <span style="text-decoration: line-through">contract upgradable</span>, <span style="text-decoration: line-through">pic watermark</span>, <span style="text-decoration: line-through">right-to-left naming</span>, <span style="text-decoration: line-through">event & error handling</span>, <span style="text-decoration: line-through">pricing</span>, readme, security<BR>
         
         <H2 style="font-family: serif">About Onchain Art</H2>
         Imagine you're about to sign an important document.<BR>
@@ -130,15 +133,15 @@
         For you.<BR>
         To create and share, and now own, your rockopera.<BR>
         <BR>
-        <a href="http://color.rockopera.eth.link/" style="color:#C1B7A0;">color.rockopera.eth</a>, version 2.0.251015a, by <a href="http://rockopera.eth.link/" style="color:#C1B7A0;">rockopera.eth</a>
+        <a href="http://color.rockopera.eth.link/" style="color:#C1B7A0;">color.rockopera.eth</a>, version 2.0.251015a+, by <a href="http://rockopera.eth.link/" style="color:#C1B7A0;">rockopera.eth</a>
     </div>
 
-<!-- 
-<script src="./bcn-index.js" type="module"></script>
 
+<script src="./bcn-index.js" type="module"></script>
+<!-- 
 when folding in all the javascript to this one HTML file
  remember to include, and mod, the constants file
--->
+
 <script type="module">
 export const contractAddress = "0xaD4C3bC7fEbC9FAd50496109c4845C1826eCe6D0";
 export const abi = [
@@ -1218,6 +1221,6 @@ nameItButton.onclick = nameIt;
 
 
 </script>
-
+-->
 </body>
 </html>

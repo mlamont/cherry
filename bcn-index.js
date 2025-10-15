@@ -3,6 +3,7 @@ import {
   custom,
   createPublicClient,
   http,
+  parseEther,
 } from "https://esm.sh/viem";
 import { sepolia } from "https://esm.sh/viem/chains";
 import { contractAddress, abi } from "./bcn-constants.js";
@@ -30,6 +31,8 @@ let publicClient;
 let tokenName;
 let tokenOwner;
 let connectedAccount;
+let color;
+let payment;
 
 async function connect() {
   if (typeof window.ethereum !== "undefined") {
@@ -157,14 +160,36 @@ async function nameIt() {
     publicClient = createPublicClient({
       transport: custom(window.ethereum),
     });
+
+    // logic for pricing:
+    color = colorInput.value.substring(1);
+    payment = parseEther("0.001");
+    if (
+      color == "0000FF" ||
+      color == "00FF00" ||
+      color == "FF0000" ||
+      color == "00FFFF" ||
+      color == "FF00FF" ||
+      color == "FFFF00"
+    ) {
+      payment = parseEther("1");
+    }
+    if (color == "000000" || color == "FFFFFF") {
+      payment = parseEther("10");
+    }
+
+    // test run a minting:
     const { request } = await publicClient.simulateContract({
       address: contractAddress,
       abi: abi,
       functionName: "setToken",
       account: connectedAccount,
       chain: sepolia,
-      args: [colorInput.value.substring(1), nameInput.value],
+      args: [color, nameInput.value],
+      value: payment,
     });
+
+    // if that test run works, do the actual mint:
     const hash = await walletClient.writeContract(request);
     console.log(hash);
   } catch (error) {
