@@ -35,9 +35,9 @@
   - Add > File Upload
   - ...
 - connect to ENS
-  - get CID (V0) from IPFS
-  - go to ENS: LINK
-  - update field: FIELD
+  - get CID from IPFS
+  - go to ENS: https://app.ens.domains/color.rockopera.eth
+  - Edit Profile button > Content Hash (IPFS) field > [enter CID], save
 
 # Backlog
 
