@@ -8,7 +8,7 @@
 - [Gotta figure out how I update this page, sourcing from separate files and flattining it into one, it would seem, then version controlling the main page, and THEN how I upload to IPFS.]
   - ~~sourcing from separate files~~
   - ~~flattening into one file~~
-  - version controlling the main page
+  - ~~version controlling the main page~~
   - uploading to IPFS
 - sourcing from separate files
   - index.html: the 1 file that is uploaded to IPFS
@@ -26,8 +26,18 @@
     - include `script` tags that explicitly houses the JS
     - ...then switch include/exclude when going to 'dev mode' from 'publish mode'
   - from the explicitly housed JS, remove the one line that points to `bcn-constants.js` from code included from `bcn-index.js`
-- version controlling the main page
-  - asdf
+- version controlling the main page: index.html
+  - update the version number in the last line of webpage text
+  - save a copy of the page per template: `bcn4ipfsnnnnnnx.html`
+- uploading to IPFS
+  - go to Pinata: https://app.pinata.cloud/ipfs/files
+  - sign in with GitHub
+  - Add > File Upload
+  - ...
+- connect to ENS
+  - get CID (V0) from IPFS
+  - go to ENS: LINK
+  - update field: FIELD
 
 # Backlog
 
