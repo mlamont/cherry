@@ -20,6 +20,7 @@ const renameItButton = document.getElementById("renameItButton");
 const nameInput = document.getElementById("nameInput");
 const nameItButton = document.getElementById("nameItButton");
 const ownerIsNobodyDiv = document.getElementById("ownerIsNobodyDiv");
+const poorDiv = document.getElementById("poorDiv");
 const ownerIsSomebodyDiv = document.getElementById("ownerIsSomebodyDiv");
 const ownerIsNotMeDiv = document.getElementById("ownerIsNotMeDiv");
 const ownerIsMeDiv = document.getElementById("ownerIsMeDiv");
@@ -55,6 +56,7 @@ async function named() {
   renameInput.value = "";
   nameInput.value = "";
   ownerIsNobodyDiv.hidden = true;
+  poorDiv.hidden = true;
   ownerIsSomebodyDiv.hidden = true;
   ownerIsNotMeDiv.hidden = true;
   ownerIsMeDiv.hidden = true;
@@ -213,7 +215,15 @@ async function nameIt() {
     console.log(hash);
   } catch (error) {
     console.log("Looks like we gots ourselves an error!");
-    console.log(error);
+    console.log(error.message);
+    currentNameSpan.innerHTML = "please try...";
+    currentOwnerSpan.innerHTML = "...that again";
+
+    // ...is the error about insufficient funds...
+    if (error.message.includes("insufficient")) {
+      // ...ah, right, not enough funds...
+      poorDiv.hidden = false; // ...get richer, then retry
+    }
   }
 }
 
