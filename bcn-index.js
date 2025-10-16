@@ -28,11 +28,12 @@ const ownerIsMeDiv = document.getElementById("ownerIsMeDiv");
 let walletClient;
 let publicClient;
 
+let colorhex;
+let tokenId;
 let tokenName;
 let tokenOwner;
 let connectedAccount;
-let color;
-let payment;
+let price;
 
 async function connect() {
   if (typeof window.ethereum !== "undefined") {
@@ -65,20 +66,21 @@ async function named() {
       transport: http(),
     });
     console.log("public client created from named() in bcn-index.js");
-    console.log(colorInput.value.substring(1));
+    colorhex = colorInput.value.substring(1);
+    console.log(colorhex);
     // let's try to get the token's name & owner
     try {
       tokenName = await publicClient.readContract({
         address: contractAddress,
         abi: abi,
         functionName: "getName",
-        args: [colorInput.value.substring(1)],
+        args: [colorhex],
       });
       tokenOwner = await publicClient.readContract({
         address: contractAddress,
         abi: abi,
         functionName: "getOwner",
-        args: [colorInput.value.substring(1)],
+        args: [colorhex],
       });
       // ...if we made it this far, inputs were valid, and token exists...
       // let's show the token's name & owner
@@ -161,23 +163,36 @@ async function nameIt() {
       transport: custom(window.ethereum),
     });
 
-    // logic for pricing:
-    color = colorInput.value.substring(1);
-    payment = Number(parseEther("0.001"));
+    // color in hexadecimal form:
+    colorhex = colorInput.value.substring(1);
+
+    // hexadecimal form could have lower case or upper case numerals (F / f),
+    // which increases the number of checks to set pricing,
+    // i.e., if not careful, could get white, as "FFFfff", for cheap...
+    // color in decimal form:
+    tokenId = await publicClient.readContract({
+      address: contractAddress,
+      abi: abi,
+      functionName: "validateColorhexAndGetId",
+      args: [colorhex],
+    });
+
+    // set price:
+    price = parseEther("0.001");
     console.log("Price set to 0.001 ETH.");
     if (
-      color == "0000FF" ||
-      color == "00FF00" ||
-      color == "FF0000" ||
-      color == "00FFFF" ||
-      color == "FF00FF" ||
-      color == "FFFF00"
+      tokenId == 255 ||
+      tokenId == 65280 ||
+      tokenId == 16711680 ||
+      tokenId == 65535 ||
+      tokenId == 16711935 ||
+      tokenId == 16776960
     ) {
-      payment = Number(parseEther("1"));
+      price = parseEther("1");
       console.log("Price set to 1 ETH!");
     }
-    if (color == "000000" || color == "FFFFFF") {
-      payment = Number(parseEther("10"));
+    if (tokenId == 0 || tokenId == 16777215) {
+      price = parseEther("10");
       console.log("Price set to 10 ETH!!");
     }
 
@@ -188,14 +203,16 @@ async function nameIt() {
       functionName: "setToken",
       account: connectedAccount,
       chain: sepolia,
-      args: [color, nameInput.value],
-      value: payment,
+      args: [colorhex, nameInput.value],
+      value: price,
     });
+    console.log("This line is between simulating & writing the contract.");
 
     // if that test run works, do the actual mint:
     const hash = await walletClient.writeContract(request);
     console.log(hash);
   } catch (error) {
+    console.log("Looks like we gots ourselves an error!");
     console.log(error);
   }
 }
