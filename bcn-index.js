@@ -163,7 +163,8 @@ async function nameIt() {
 
     // logic for pricing:
     color = colorInput.value.substring(1);
-    payment = parseEther("0.001");
+    payment = Number(parseEther("0.001"));
+    console.log("Price set to 0.001 ETH.");
     if (
       color == "0000FF" ||
       color == "00FF00" ||
@@ -172,10 +173,12 @@ async function nameIt() {
       color == "FF00FF" ||
       color == "FFFF00"
     ) {
-      payment = parseEther("1");
+      payment = Number(parseEther("1"));
+      console.log("Price set to 1 ETH!");
     }
     if (color == "000000" || color == "FFFFFF") {
-      payment = parseEther("10");
+      payment = Number(parseEther("10"));
+      console.log("Price set to 10 ETH!!");
     }
 
     // test run a minting:
