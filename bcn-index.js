@@ -39,7 +39,7 @@ let price;
 async function connect() {
   if (typeof window.ethereum !== "undefined") {
     walletClient = createWalletClient({
-      chain: sepolia,
+      chain: mainnet,
       transport: custom(window.ethereum),
     });
     console.log("wallet client created from connect() in bcn-index.js");
@@ -64,7 +64,7 @@ async function named() {
   if (typeof window.ethereum !== "undefined") {
     // ...Metamask is installed...
     publicClient = createPublicClient({
-      chain: sepolia,
+      chain: mainnet,
       transport: http(),
     });
     console.log("public client created from named() in bcn-index.js");
@@ -146,7 +146,7 @@ async function renameIt() {
       abi: abi,
       functionName: "modName",
       account: connectedAccount,
-      chain: sepolia,
+      chain: mainnet,
       args: [colorInput.value.substring(1), renameInput.value],
     });
     const hash = await walletClient.writeContract(request);
@@ -204,7 +204,7 @@ async function nameIt() {
       abi: abi,
       functionName: "setToken",
       account: connectedAccount,
-      chain: sepolia,
+      chain: mainnet,
       args: [colorhex, nameInput.value],
       value: price,
     });
