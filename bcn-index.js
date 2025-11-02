@@ -140,7 +140,9 @@ async function renameIt() {
   try {
     publicClient = createPublicClient({
       transport: custom(window.ethereum),
+      // transport: http(), // nope: this line doesn't help
     });
+    console.log("public client created from renameIt()");
     const { request } = await publicClient.simulateContract({
       address: contractAddress,
       abi: abi,
