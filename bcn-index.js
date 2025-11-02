@@ -5,7 +5,7 @@ import {
   http,
   parseEther,
 } from "https://esm.sh/viem";
-import { sepolia } from "https://esm.sh/viem/chains";
+import { mainnet } from "https://esm.sh/viem/chains";
 import { contractAddress, abi } from "./bcn-constants.js";
 
 // grab website elements
