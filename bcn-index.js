@@ -65,7 +65,8 @@ async function named() {
     // ...Metamask is installed...
     publicClient = createPublicClient({
       chain: mainnet,
-      transport: http(),
+      transport: http(), // this line works, not the below
+      // transport: custom(window.ethereum),
     });
     console.log("public client created from named() in bcn-index.js");
     colorhex = colorInput.value.substring(1);
@@ -139,19 +140,25 @@ async function renameIt() {
   // now:
   try {
     publicClient = createPublicClient({
-      transport: custom(window.ethereum),
-      // transport: http(), // nope: this line doesn't help
+      chain: mainnet, // adding this here instead of in simulateContract()
+      // transport: custom(window.ethereum), // ContractFunctionExecutionError:
+      // ...The contract function "modName" reverted.
+      transport: http(), // try'g this i/o the one above
     });
     console.log("public client created from renameIt()");
     const { request } = await publicClient.simulateContract({
+      account: connectedAccount,
       address: contractAddress,
       abi: abi,
       functionName: "modName",
-      account: connectedAccount,
-      chain: mainnet,
       args: [colorInput.value.substring(1), renameInput.value],
+      chain: mainnet,
     });
-    const hash = await walletClient.writeContract(request);
+    console.log("simulated contract from renameIt()");
+    await walletClient.switchChain({ id: 1 });
+    const hash = await walletClient.writeContract(request); // until above line, ContractFunctionExecutionError:
+    // ...The current chain of the wallet (id: 11155111) does not match...
+    // ...the target chain for the transaction (id: 1 – Ethereum).
     console.log(hash);
   } catch (error) {
     console.log(error);
@@ -202,17 +209,18 @@ async function nameIt() {
 
     // test run a minting:
     const { request } = await publicClient.simulateContract({
+      account: connectedAccount,
       address: contractAddress,
       abi: abi,
       functionName: "setToken",
-      account: connectedAccount,
-      chain: mainnet,
       args: [colorhex, nameInput.value],
       value: price,
+      chain: mainnet,
     });
     console.log("This line is between simulating & writing the contract.");
 
     // if that test run works, do the actual mint:
+    await walletClient.switchChain({ id: 1 }); // ensure we're on ETH mainnet
     const hash = await walletClient.writeContract(request);
     console.log(hash);
   } catch (error) {
