@@ -140,15 +140,15 @@
         For you.<BR>
         To create and share, and now own, your rockopera.<BR>
         <BR>
-        <a href="http://color.rockopera.eth.link/" style="color:#C1B7A0;">color.rockopera.eth</a>, version 2.2.251110c+, by <a href="http://rockopera.eth.link/" style="color:#C1B7A0;">rockopera.eth</a>
+        <a href="http://color.rockopera.eth.link/" style="color:#C1B7A0;">color.rockopera.eth</a>, version 2.2.251110a, by <a href="http://rockopera.eth.link/" style="color:#C1B7A0;">rockopera.eth</a>
     </div>
 
-
-<script src="./bcn-index.js" type="module"></script>
 <!-- 
+<script src="./bcn-index.js" type="module"></script>
+
 when folding in all the javascript to this one HTML file
  remember to include, and mod, the constants file
-
+-->
 <script type="module">
 export const contractAddress = "0x1A17C3096dda65a8f9C53D0F8fcB831f9F66b927"; // color.rockopera.eth
 export const abi = [
@@ -843,15 +843,11 @@ async function nameIt() {
   // now:
   try {
     publicClient = createPublicClient({
-      // transport: custom(window.ethereum), // copying renameIt()'s
-      chain: mainnet,
-      transport: http(),
+      transport: custom(window.ethereum),
     });
-    console.log("public client created from nameIt()");
 
     // color in hexadecimal form:
     colorhex = colorInput.value.substring(1);
-    console.log(colorhex);
 
     // hexadecimal form could have lower case or upper case numerals (F / f),
     // which increases the number of checks to set pricing,
@@ -863,8 +859,6 @@ async function nameIt() {
       functionName: "validateColorhexAndGetId",
       args: [colorhex],
     });
-    console.log("did validateColorhexAndGetId()");
-    console.log(tokenId);
 
     // set price:
     price = parseEther("0.001");
@@ -884,7 +878,6 @@ async function nameIt() {
       price = parseEther("10");
       console.log("Price set to 10 ETH!!");
     }
-    console.log(price);
 
     // test run a minting:
     const { request } = await publicClient.simulateContract({
@@ -896,7 +889,7 @@ async function nameIt() {
       value: price,
       chain: mainnet,
     });
-    console.log("simulated contract from nameIt()");
+    console.log("This line is between simulating & writing the contract.");
 
     // if that test run works, do the actual mint:
     await walletClient.switchChain({ id: 1 }); // ensure we're on ETH mainnet
@@ -923,6 +916,6 @@ nameItButton.onclick = nameIt;
 
 
 </script>
--->
+
 </body>
 </html>

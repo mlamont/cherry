@@ -171,11 +171,15 @@ async function nameIt() {
   // now:
   try {
     publicClient = createPublicClient({
-      transport: custom(window.ethereum),
+      // transport: custom(window.ethereum), // copying renameIt()'s
+      chain: mainnet,
+      transport: http(),
     });
+    console.log("public client created from nameIt()");
 
     // color in hexadecimal form:
     colorhex = colorInput.value.substring(1);
+    console.log(colorhex);
 
     // hexadecimal form could have lower case or upper case numerals (F / f),
     // which increases the number of checks to set pricing,
@@ -187,6 +191,8 @@ async function nameIt() {
       functionName: "validateColorhexAndGetId",
       args: [colorhex],
     });
+    console.log("did validateColorhexAndGetId()");
+    console.log(tokenId);
 
     // set price:
     price = parseEther("0.001");
@@ -206,6 +212,7 @@ async function nameIt() {
       price = parseEther("10");
       console.log("Price set to 10 ETH!!");
     }
+    console.log(price);
 
     // test run a minting:
     const { request } = await publicClient.simulateContract({
@@ -217,7 +224,7 @@ async function nameIt() {
       value: price,
       chain: mainnet,
     });
-    console.log("This line is between simulating & writing the contract.");
+    console.log("simulated contract from nameIt()");
 
     // if that test run works, do the actual mint:
     await walletClient.switchChain({ id: 1 }); // ensure we're on ETH mainnet
