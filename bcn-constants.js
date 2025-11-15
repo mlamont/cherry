@@ -62,8 +62,20 @@ export const abi = [
     type: "error",
   },
   { inputs: [], name: "FailedCall", type: "error" },
+  { inputs: [], name: "InvalidColorhex", type: "error" },
   { inputs: [], name: "InvalidInitialization", type: "error" },
+  { inputs: [], name: "InvalidTokenId", type: "error" },
+  { inputs: [], name: "InvalidTokenName", type: "error" },
+  {
+    inputs: [
+      { internalType: "uint256", name: "colorMintPrice", type: "uint256" },
+    ],
+    name: "NeedMoreFundsForThisColor",
+    type: "error",
+  },
   { inputs: [], name: "NotInitializing", type: "error" },
+  { inputs: [], name: "NotTokenOwner", type: "error" },
+  { inputs: [], name: "NothingToWithdraw", type: "error" },
   {
     inputs: [{ internalType: "address", name: "owner", type: "address" }],
     name: "OwnableInvalidOwner",
@@ -74,12 +86,14 @@ export const abi = [
     name: "OwnableUnauthorizedAccount",
     type: "error",
   },
+  { inputs: [], name: "ProxyContractCannotBeTokenOwner", type: "error" },
   { inputs: [], name: "UUPSUnauthorizedCallContext", type: "error" },
   {
     inputs: [{ internalType: "bytes32", name: "slot", type: "bytes32" }],
     name: "UUPSUnsupportedProxiableUUID",
     type: "error",
   },
+  { inputs: [], name: "WithdrawalFailed", type: "error" },
   {
     anonymous: false,
     inputs: [
@@ -264,6 +278,13 @@ export const abi = [
     type: "function",
   },
   {
+    inputs: [{ internalType: "string", name: "colorhex", type: "string" }],
+    name: "aGetId",
+    outputs: [{ internalType: "uint256", name: "n", type: "uint256" }],
+    stateMutability: "pure",
+    type: "function",
+  },
+  {
     inputs: [
       { internalType: "address", name: "to", type: "address" },
       { internalType: "uint256", name: "tokenId", type: "uint256" },
@@ -297,28 +318,21 @@ export const abi = [
   {
     inputs: [{ internalType: "uint256", name: "n", type: "uint256" }],
     name: "getColorhex",
-    outputs: [{ internalType: "string", name: "", type: "string" }],
+    outputs: [{ internalType: "string", name: "colorhex", type: "string" }],
     stateMutability: "pure",
     type: "function",
   },
   {
     inputs: [{ internalType: "string", name: "colorhex", type: "string" }],
     name: "getName",
-    outputs: [{ internalType: "string", name: "", type: "string" }],
+    outputs: [{ internalType: "string", name: "tokenName", type: "string" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [{ internalType: "string", name: "colorhex", type: "string" }],
     name: "getOwner",
-    outputs: [{ internalType: "address", name: "", type: "address" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "string", name: "colorhex", type: "string" }],
-    name: "getPic",
-    outputs: [{ internalType: "string", name: "", type: "string" }],
+    outputs: [{ internalType: "address", name: "tokenOwner", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
@@ -463,7 +477,7 @@ export const abi = [
   {
     inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
     name: "tokenURI",
-    outputs: [{ internalType: "string", name: "", type: "string" }],
+    outputs: [{ internalType: "string", name: "tokenUri", type: "string" }],
     stateMutability: "view",
     type: "function",
   },
@@ -500,13 +514,6 @@ export const abi = [
     name: "upgradeabilityEnded",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "string", name: "colorhex", type: "string" }],
-    name: "validateColorhexAndGetId",
-    outputs: [{ internalType: "uint256", name: "n", type: "uint256" }],
-    stateMutability: "pure",
     type: "function",
   },
   {

@@ -110,7 +110,7 @@ async function named() {
       // ...some kind of error happened from trying to get the token's name & owner...
       console.log(error.message);
       // ...is the error about the token not existing...
-      if (error.message.includes("ERC721NonexistentToken")) {
+      if (error.message.includes("InvalidTokenId")) {
         // ...ah, right, token doesn't exist...
         currentNameSpan.innerHTML = "Up for grabs!";
         currentOwnerSpan.innerHTML = "Could be you!";
@@ -188,10 +188,10 @@ async function nameIt() {
     tokenId = await publicClient.readContract({
       address: contractAddress,
       abi: abi,
-      functionName: "validateColorhexAndGetId",
+      functionName: "aGetId",
       args: [colorhex],
     });
-    console.log("did validateColorhexAndGetId()");
+    console.log("did aGetId()");
     console.log(tokenId);
 
     // set price:
@@ -237,7 +237,10 @@ async function nameIt() {
     currentOwnerSpan.innerHTML = "...that again";
 
     // ...is the error about insufficient funds...
-    if (error.message.includes("insufficient")) {
+    if (
+      error.message.includes("insufficient") ||
+      error.message.includes("NeedMoreFundsForThisColor")
+    ) {
       // ...ah, right, not enough funds...
       poorDiv.hidden = false; // ...get richer, then retry
     }
