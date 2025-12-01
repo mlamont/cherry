@@ -1,4 +1,4 @@
-export const contractAddress = "0x1A17C3096dda65a8f9C53D0F8fcB831f9F66b927"; // color.rockopera.eth
+export const contractAddress = "0x8502126beC0ab0BA4276508B18381a8a4a4bAe73";
 export const abi = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
   {
